@@ -1,3 +1,3 @@
 # NoMongo
 
-A description of this package.
+Abstraction of MongoDB operations using MongoKitten & Vapor.
