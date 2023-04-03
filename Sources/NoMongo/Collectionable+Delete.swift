@@ -15,6 +15,7 @@ public extension DBCollectionable {
         return try await Self.delete(in: db, id: _id)
     }
     
+    @discardableResult
     static func delete(in db: MongoDatabase, id: ObjectId?) async throws -> DeleteReply {
         guard let id else { throw DBCollectionableError.missingField("_id") }
         return try await Self.deleteOne(in: db, where: ["_id": id])
@@ -25,5 +26,12 @@ public extension DBCollectionable {
     -> DeleteReply {
         let coll = collection(in: db)
         return try await coll.deleteOne(where: document)
+    }
+    
+    @discardableResult
+    static func deleteAll(in db: MongoDatabase, where document: Document)
+    async throws -> DeleteReply {
+        let coll = collection(in: db)
+        return try await coll.deleteAll(where: document)
     }
 }

@@ -20,4 +20,14 @@ public extension DBCollectionable {
         let coll = collection(in: db)
         try await coll.upsert(updates, where: query)
     }
+    
+    @discardableResult
+    static func set(in db: MongoDatabase, updates: Document, query: Document) async throws -> UpdateReply {
+        let coll = collection(in: db)
+        let setDocument: Document = [
+            "$set": updates
+        ]
+        let result = try await coll.updateOne(where: query, to: setDocument)
+        return result
+    }
 }
