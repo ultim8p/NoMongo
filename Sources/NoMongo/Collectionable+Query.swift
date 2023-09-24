@@ -57,6 +57,15 @@ public extension DBCollectionable {
     
     // MARK: Multiple Objects
     
+    static func findAll(in db: MongoDatabase, ids: [ObjectId]?, sort: Sorting? = nil) async throws -> [Self] {
+        guard let ids, !ids.isEmpty else { return [] }
+        
+        let query: Document = [
+            "_id": ["$in": ids]
+        ]
+        return try await findAll(in: db, query: query, sort: sort)
+    }
+    
     static func findAll(in db: MongoDatabase) async throws -> [Self] {
         return try await findAll(in: db, query: nil)
     }
