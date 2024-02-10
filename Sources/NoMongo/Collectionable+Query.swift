@@ -14,7 +14,6 @@ public extension DBCollectionable {
     // Note that the id of the new object will be taken, if it is different from
     // the existing one, the id for this object will change.
     func findAndUpsert(db: MongoDatabase, where query: Document) async throws {
-        let coll = collection(in: db)
         if let existing = try await Self.findOneOptional(in: db, query: query) {
             try await existing.delete(in: db)
         }
@@ -72,6 +71,10 @@ public extension DBCollectionable {
     
     static func findAll(in db: MongoDatabase, query: Document? = nil, sort: Sorting? = nil, limit: Int? = nil) async throws -> [Self] {
         let coll = collection(in: db)
+//        let agg = coll.buildAggregate {
+//            Match(where: "age" >= 18)
+//        }
+//        agg.
         var cursor = coll.find(query ?? [:], as: Self.self)
         if let sort = sort {
             cursor = cursor.sort(sort)
