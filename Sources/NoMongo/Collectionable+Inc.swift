@@ -19,4 +19,13 @@ public extension DBCollectionable {
         ]
         return try await Self.upsert(in: db, updates: updates, query: query)
     }
+    
+    static func inc(in db: MongoDatabase, updates: [String: Double], query: Document)
+    async throws {
+        let updates: Document = [
+            "$inc": updates,
+            "$set": ["dateUpdated": Date()]
+        ]
+        return try await Self.upsert(in: db, updates: updates, query: query)
+    }
 }
