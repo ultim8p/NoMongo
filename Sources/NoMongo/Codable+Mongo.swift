@@ -18,7 +18,7 @@ public extension Formatter {
     }
 }
 
-extension JSONDecoder.DateDecodingStrategy {
+public extension JSONDecoder.DateDecodingStrategy {
     
     static let mongoStrategy = custom {
         let container = try $0.singleValueContainer()
@@ -31,7 +31,7 @@ extension JSONDecoder.DateDecodingStrategy {
     }
 }
 
-extension JSONEncoder.DateEncodingStrategy {
+public extension JSONEncoder.DateEncodingStrategy {
     
     static let mongoStrategy = custom {
         var container = $1.singleValueContainer()
@@ -39,7 +39,7 @@ extension JSONEncoder.DateEncodingStrategy {
     }
 }
 
-extension JSONDecoder {
+public extension JSONDecoder {
     
     static var mongoDecoder: JSONDecoder {
         let decoder = JSONDecoder()
@@ -48,7 +48,7 @@ extension JSONDecoder {
     }
 }
 
-extension JSONEncoder {
+public extension JSONEncoder {
     
     static var mongoEncoder: JSONEncoder {
         let encoder = JSONEncoder()
