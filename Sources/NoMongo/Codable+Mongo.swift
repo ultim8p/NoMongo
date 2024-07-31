@@ -58,3 +58,14 @@ public extension JSONEncoder {
     }
 }
 
+extension Date {
+    var mongoDate: String {
+        return Formatter.mongoFormatter.string(from: self)
+    }
+}
+
+extension String {
+    var dateFromMongo: Date? {
+        return Formatter.mongoFormatter.date(from: self)
+    }
+}
